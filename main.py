@@ -8,7 +8,6 @@ import time
 # Constants
 OBSTACLE_SPEED = 0.1
 GRAVITY = 0.05
-FLAP_STRENGTH = 15
 OBSTACLES = []
 
 # Create the screen
@@ -17,15 +16,19 @@ screen.setup(width=800, height=600)
 screen.bgcolor("white")
 screen.title("Flappy Byrd")
 screen.tracer(0)
+image = "./images/le_byrd.gif"
+screen.addshape(image)
 
 # Initialize player scoreboard and obstacles - Game assets
-player = Player()
+player = Player(image=image)
 scoreboard = ScoreBoard()
 obstacles = []
 
 # Respond to clicks
 screen.listen()
 screen.onkey(player.flap, "Up")
+screen.onkey(player.dive, "Down")
+
 
 # Game State
 game_is_on = True
@@ -66,6 +69,11 @@ def get_collision_distance(height, obs: Obstacle):
     return c_squared * 2.5
 
 
+def end_game(end_time):
+    scoreboard.add_point(score=get_time_played(end_time))
+    scoreboard.update_scoreboard()
+
+
 # Game Loop
 while game_is_on:
     screen.update()
@@ -80,8 +88,7 @@ while game_is_on:
         print("CRASH DETECTED")
         ending_time = time.time()
         game_is_on = False
-        scoreboard.add_point(score=get_time_played(ending_time))
-        scoreboard.update_scoreboard()
+        end_game(end_time=ending_time)
 
     # Detect obstacle collision
     for obstacle in obstacles:
@@ -93,7 +100,9 @@ while game_is_on:
                     player.distance(obstacle.lower_obstacle) \
                     < get_collision_distance(height=bottom_height, obs=obstacle):
                 print("HIT!")
+                ending_time = time.time()
                 game_is_on = False
+                end_game(end_time=ending_time)
 
 
 screen.exitonclick()

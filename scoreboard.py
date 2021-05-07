@@ -12,8 +12,8 @@ class ScoreBoard(Turtle):
 
     def update_scoreboard(self):
         self.clear()
-        self.goto(-355, 230)
-        self.write(self.score, align="center", font=("Courier", 20, "normal"))
+        self.goto(-100, -30)
+        self.write(f"Your Score: {self.score}", font=("Courier", 25, "bold"))
 
     def add_point(self, score):
         self.score = score
