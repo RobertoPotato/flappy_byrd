@@ -12,6 +12,9 @@ def draw_obstacle_piece(x_cord, y_cord, height):
     obstacle_piece.color("green")
     obstacle_piece.shapesize(stretch_len=2, stretch_wid=stretch)
     obstacle_piece.goto(x_cord, y_cord)
+    # DELETE THESE
+    # obstacle_piece.xcor()
+    # obstacle_piece.ycor()
     return obstacle_piece
 
 
