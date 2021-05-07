@@ -1,4 +1,4 @@
-#Flappy Bird 
+# Flappy Byrd 
 
 A Python Implementation of the Flappy bird game. Added a 
 dive method for when things get tight. Controls are the 
